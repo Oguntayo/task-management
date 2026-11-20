@@ -52,7 +52,7 @@ export function ProjectForm({ people }: { people: Option[] }) {
       </div>
 
       <div>
-        <p className="mb-1.5 text-xs font-medium">Rough scope <span className="font-normal text-subtle">(optional — you can add items later; hours help the AI's first estimate)</span></p>
+        <p className="mb-1.5 text-xs font-medium">Rough scope <span className="font-normal text-subtle">(optional — you can add items later; hours help the AI&apos;s first estimate)</span></p>
         <div className="space-y-2">
           {items.map((it, i) => (
             <div key={i} className="flex gap-2">
