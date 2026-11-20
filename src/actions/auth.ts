@@ -33,7 +33,10 @@ export async function register(_: unknown, form: FormData): Promise<ActionResult
     email: parsed.data.email, password: parsed.data.password,
     options: { data: { full_name: parsed.data.fullName }, emailRedirectTo: appUrl(`/auth/callback?next=${encodeURIComponent(next === '/dashboard' ? '/onboarding' : next)}`) },
   });
-  if (error) return fail(error.message.includes('registered') ? 'An account with this email already exists. Sign in instead.' : 'Could not create the account. Try again.');
+  if (error) {
+    console.error('[auth:register] Supabase sign-up failed', { status: error.status, code: error.code, message: error.message });
+    return fail(error.message.toLowerCase().includes('registered') ? 'An account with this email already exists. Sign in instead.' : 'Could not create the account. Try again.');
+  }
   if (data.session) redirect(next === '/dashboard' ? '/onboarding' : next);
   return { ok: true, message: 'Check your inbox to confirm your email, then sign in.' };
 }
