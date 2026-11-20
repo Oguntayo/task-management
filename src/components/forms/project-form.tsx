@@ -28,7 +28,7 @@ export function ProjectForm({ people }: { people: Option[] }) {
       e.preventDefault();
       run(() => createProject({ name, description, targetDate: targetDate || undefined, memberIds,
         scopeItems: items.filter((i) => i.title.trim()).map((i) => ({ title: i.title, estimatedHours: i.estimatedHours ? Number(i.estimatedHours) : undefined })) }),
-        { onOk: (r) => router.push(`/projects/${r.data.id}`) });
+        { onOk: (r) => { if (r.data) router.push(`/projects/${r.data.id}`); } });
     }}>
       <Field label="Product name" error={fieldErrors.name}><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Merchant Payouts App" /></Field>
       <Field label="What is this product?" hint="a few sentences — the AI uses this to plan scope and an ETA" error={fieldErrors.description}>
