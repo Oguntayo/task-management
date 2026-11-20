@@ -11,7 +11,7 @@ async function clientIp() {
   const h = await headers();
   return (h.get('x-forwarded-for') ?? 'unknown').split(',')[0]!.trim();
 }
-const safeNext = (n?: string | null) => (n && n.startsWith('/') && !n.startsWith('//') ? n : '/dashboard');
+const safeNext = (n?: string | null) => (n && n !== '/' && n.startsWith('/') && !n.startsWith('//') ? n : '/dashboard');
 
 export async function login(_: unknown, form: FormData): Promise<ActionResult> {
   const parsed = loginSchema.safeParse(Object.fromEntries(form));
